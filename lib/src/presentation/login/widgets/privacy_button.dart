@@ -9,20 +9,25 @@ class PrivacyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        launchUrlString(AppConstants.privacyPolicyUrl,
-            mode: LaunchMode.externalApplication);
-      },
-      child: const Text(
-        'Política de Privacidade',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: AppColors.white,
-          fontSize: 14,
-          fontWeight: FontWeight.w300,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () {
+            launchUrlString(AppConstants.privacyPolicyUrl,
+                mode: LaunchMode.externalApplication);
+          },
+          child: const Text(
+            'Política de Privacidade',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

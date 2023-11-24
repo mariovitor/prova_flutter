@@ -10,18 +10,23 @@ class LoginForm extends StatefulWidget {
   const LoginForm({
     Key? key,
     required this.onSubmit,
+    this.userNameController,
+    this.passwordCcontroller,
   }) : super(key: key);
 
   final Function(String username, String password) onSubmit;
-
+  final TextEditingController? userNameController;
+  final TextEditingController? passwordCcontroller;
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
   final formKey = GlobalKey<FormState>();
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  late final usernameController =
+      widget.userNameController ?? TextEditingController();
+  late final passwordController =
+      widget.passwordCcontroller ?? TextEditingController();
   final passwordFocusNode = FocusNode();
 
   void onSubmit() {

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:prova_flutter/src/presentation/home/home_page.dart';
 import 'package:prova_flutter/src/presentation/login/login_page.dart';
 
 Route<dynamic> onUnknownRoute(RouteSettings settings) {
@@ -9,6 +10,7 @@ Route<dynamic> onUnknownRoute(RouteSettings settings) {
     builder: (context) {
       log('Unknown route');
       return const Scaffold(
+        backgroundColor: Colors.red,
         body: Center(
           child: Text('Rota desconhecida'),
         ),
@@ -22,7 +24,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case '/':
     case LoginPage.pageName:
       return PageRouteBuilder(
-        settings: const RouteSettings(name: LoginPage.pageName),
+        settings: settings,
         pageBuilder: (context, animation, secondaryAnimation) =>
             const LoginPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -37,7 +39,18 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           );
         },
       );
-
+    case HomePage.pageName:
+      return PageRouteBuilder(
+        settings: settings,
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HomePage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      );
     default:
       return onUnknownRoute(settings);
   }

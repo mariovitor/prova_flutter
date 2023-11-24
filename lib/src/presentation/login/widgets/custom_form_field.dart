@@ -4,26 +4,31 @@ import 'package:flutter/material.dart';
 import '../../../core/design/design.dart';
 
 class CustomFormField extends StatelessWidget {
-  const CustomFormField({
-    Key? key,
-    required this.label,
-    this.controller,
-    required this.validator,
-    required this.icon,
-    this.obscureText = false,
-    this.keyboardType = TextInputType.text,
-    this.onSubmitted,
-    this.focusNode,
-  }) : super(key: key);
+  const CustomFormField(
+      {Key? key,
+      this.label,
+      this.controller,
+      this.validator,
+      this.icon,
+      this.obscureText = false,
+      this.keyboardType = TextInputType.text,
+      this.onSubmitted,
+      this.focusNode,
+      this.hintText,
+      this.textAlign = TextAlign.start,
+      s})
+      : super(key: key);
 
-  final String label;
+  final String? label;
+  final String? hintText;
   final TextEditingController? controller;
-  final String? Function(String?) validator;
-  final IconData icon;
+  final String? Function(String?)? validator;
+  final IconData? icon;
   final bool obscureText;
   final Function(String)? onSubmitted;
   final TextInputType keyboardType;
   final FocusNode? focusNode;
+  final TextAlign textAlign;
   InputBorder get border => const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)));
   @override
@@ -32,15 +37,18 @@ class CustomFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: AppColors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
+        if (label != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: Text(
+              label!,
+              style: const TextStyle(
+                color: AppColors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
           ),
-        ),
-        const SizedBox(height: 4),
         TextFormField(
           controller: controller,
           validator: validator,
@@ -50,7 +58,9 @@ class CustomFormField extends StatelessWidget {
           textInputAction: TextInputAction.next,
           keyboardType: keyboardType,
           obscureText: obscureText,
+          textAlign: textAlign,
           decoration: InputDecoration(
+            hintText: hintText,
             errorStyle: const TextStyle(
               color: AppColors.yellow,
               fontSize: 14,
@@ -64,10 +74,12 @@ class CustomFormField extends StatelessWidget {
                 color: AppColors.green,
               ),
             ),
-            prefixIcon: Icon(
-              icon,
-              color: AppColors.black,
-            ),
+            prefixIcon: icon == null
+                ? null
+                : Icon(
+                    icon,
+                    color: AppColors.black,
+                  ),
           ),
         ),
       ],

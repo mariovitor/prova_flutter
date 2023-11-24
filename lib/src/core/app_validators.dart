@@ -1,5 +1,3 @@
-import 'dart:math';
-
 enum Reasons {
   empty('Campo obrigatorio'),
   spaceAtEnd('Não pode conter espaço no final'),
@@ -19,8 +17,6 @@ abstract final class AppValidators {
       validateMax20Characters(username!);
       validateSpaceAtEnd(username);
       return null;
-    } on _ValidatorError catch (e) {
-      return e.message;
     } catch (e) {
       return e.toString();
     }
@@ -37,8 +33,6 @@ abstract final class AppValidators {
         return Reasons.onlyLettersAndNumbers.message;
       }
       return null;
-    } on _ValidatorError catch (e) {
-      return e.message;
     } catch (e) {
       return e.toString();
     }
@@ -73,4 +67,9 @@ class _ValidatorError {
   _ValidatorError(this.message);
 
   final String message;
+
+  @override
+  String toString() {
+    return message;
+  }
 }
